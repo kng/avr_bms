@@ -1,0 +1,34 @@
+Protokollspecifikation på balanserare.
+
+Första tecknet är kommando, t.ex V för volt
+Andra tecknet är löpnummer som minskar för varje enhet den passerar, när den nått 0 så aktiveras kommandot.
+
+V2 blir V1 efter första kretsen, V0 efter andra. Så exekverar tredje kretsen kommandot och returnerar data.
+Svar på kommandon är genrellt lowercase så dom inte tolkas av de andra kretsarna.
+
+Svaren kommer i 2 lowercase hexadecimala tecken, alltså en byte direkt från AD'n.
+t.ex "vb3"
+
+Aktuell rutin vidarebefordrar alla tecken som inte matchar kommandon, eller är lowercase, siffror modifieras generellt inte.
+Om ett kommando har ett tecken >1 så minskas den och skickas vidare.
+
+Spänningen delas externt och jämförs med 1.1V referens.
+
+
+Kommandon: (n är t.ex 0 eller B)
+
+D-	Avbryt all balansering, returnerar "D-"
+E-	Aktivera alla balanserare, returnerar "E-"
+Dn	Aktivera balansering på cell n, returnerar "d"
+En	Aktivera balansering på cell n, returnerar "e"
+Vn	Läser ur aktuell spänning på cell n, returnerar t.ex "vb3"
+R	Reseta alla kretsar, returnerar "R"
+
+
+
+
+
+TODO:
+
+Watchdog på kommunikation, om inget hänt på 1 min så tar automatisk späningsbaserad balansering vid.. t.ex 3.5V = Discharge ON, annars stängs den av.
+
